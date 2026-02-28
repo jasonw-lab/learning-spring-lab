@@ -3,11 +3,11 @@ package lab.spring.ai.rag.ingestion;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +21,20 @@ public class SmartRetailDataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        log.info("Checking existing data in VectorStore...");
+
+        try {
+            List<Document> existingDocs = vectorStore.similaritySearch(
+                    SearchRequest.builder().query("商品ID").topK(1).build()
+            );
+            if (!existingDocs.isEmpty()) {
+                log.info("Data already exists in VectorStore, skipping data load");
+                return;
+            }
+        } catch (Exception e) {
+            log.info("VectorStore is empty or new, proceeding with data load");
+        }
+
         log.info("Loading Smart Retail sample data into VectorStore...");
 
         List<Document> documents = List.of(
@@ -42,12 +56,8 @@ public class SmartRetailDataLoader implements ApplicationRunner {
                 )
         );
 
-        try {
-            vectorStore.add(documents);
-            log.info("Loaded {} documents into VectorStore", documents.size());
-        } catch (ResourceAccessException e) {
-            log.warn("Failed to load documents: Ollama is not running. Start Ollama with: ollama serve");
-            log.warn("Then restart the application to load sample data.");
-        }
+        vectorStore.add(documents);
+        log.info("Loaded {} documents into VectorStore", documents.size());
     }
 }
+
