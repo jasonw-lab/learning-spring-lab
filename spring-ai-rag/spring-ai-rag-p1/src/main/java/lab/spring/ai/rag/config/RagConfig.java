@@ -11,6 +11,7 @@ public class RagConfig {
 
     @Bean
     public VectorStore vectorStore(EmbeddingModel embeddingModel) {
-        return new SimpleVectorStore(embeddingModel);
+        // Phase1: In-memory only. Rebuild on each restart via SmartRetailDataLoader.
+        return SimpleVectorStore.builder(embeddingModel).build();
     }
 }

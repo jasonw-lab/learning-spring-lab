@@ -20,7 +20,7 @@ public class RagService {
 
     private static final String SYSTEM_PROMPT = """
             あなたは店舗運営データを分析するAIアシスタントです。
-            以下のコンテキスト情報を参考に、ユーザーの質問に日本語で回答してください。
+            以下のコンテキスト情報のみを根拠に、ユーザーの質問に日本語で回答してください。
             コンテキストに含まれない情報については、推測せずに「情報がありません」と回答してください。
 
             コンテキスト:
@@ -39,30 +39,21 @@ public class RagService {
         log.info("Processing RAG request: {}", request.question());
 
         List<Document> relevantDocs = vectorStore.similaritySearch(
-                SearchRequest.builder()
-                        .query(request.question())
-                        .topK(TOP_K)
-                        .build()
+                SearchRequest.builder().query(request.question()).topK(TOP_K).build()
         );
-
-        log.info("Found {} relevant documents", relevantDocs.size());
 
         String context = relevantDocs.stream()
                 .map(Document::getText)
                 .collect(Collectors.joining("\n\n"));
 
-        String systemPrompt = String.format(SYSTEM_PROMPT, context);
-
         String answer = chatClient.prompt()
-                .system(systemPrompt)
+                .system(String.format(SYSTEM_PROMPT, context))
                 .user(request.question())
                 .call()
                 .content();
 
-        List<String> sources = relevantDocs.stream()
-                .map(Document::getText)
-                .toList();
-
+        List<String> sources = relevantDocs.stream().map(Document::getText).toList();
         return new RagResponse(answer, sources);
     }
 }
+

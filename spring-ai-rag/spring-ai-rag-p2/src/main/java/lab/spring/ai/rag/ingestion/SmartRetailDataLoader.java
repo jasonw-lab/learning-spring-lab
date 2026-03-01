@@ -25,8 +25,12 @@ public class SmartRetailDataLoader implements ApplicationRunner {
 
         try {
             List<Document> existingDocs = vectorStore.similaritySearch(
-                    SearchRequest.builder().query("商品ID").topK(1).build()
+                    SearchRequest.builder()
+                            .query("商品ID")
+                            .topK(1)
+                            .build()
             );
+
             if (!existingDocs.isEmpty()) {
                 log.info("Data already exists in VectorStore, skipping data load");
                 return;
@@ -56,8 +60,13 @@ public class SmartRetailDataLoader implements ApplicationRunner {
                 )
         );
 
-        vectorStore.add(documents);
-        log.info("Loaded {} documents into VectorStore", documents.size());
+        try {
+            vectorStore.add(documents);
+            log.info("Loaded {} documents into VectorStore", documents.size());
+        } catch (Exception e) {
+            log.warn("Failed to load documents: {}", e.getMessage());
+            log.warn("Ensure Elasticsearch is running: docker-compose up -d");
+            log.warn("And Ollama is running: ollama serve");
+        }
     }
 }
-

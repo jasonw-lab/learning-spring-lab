@@ -1,17 +1,4 @@
-# Claude
-# CLAUDE.md
-.claude/
-
-# Maven
 target/
-
-# IDE
 .idea/
-*.iml
-.vscode/
-.settings/
-.project
-.classpath
-
-# OS
 .DS_Store
+

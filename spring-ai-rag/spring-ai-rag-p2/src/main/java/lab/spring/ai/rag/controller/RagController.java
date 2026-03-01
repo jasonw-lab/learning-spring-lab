@@ -22,4 +22,3 @@ public class RagController {
         return ragService.ask(request);
     }
 }
-
