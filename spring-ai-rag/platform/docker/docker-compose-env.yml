@@ -26,7 +26,7 @@ services:
     command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci"]
     volumes:
       - ./sql/mysql-init:/docker-entrypoint-initdb.d
-      - ${BASEPATH:-/mydata/ec-demo}/mysql/ec-demo/conf/my.cnf:/etc/my.cnf
+      - ./mysql/conf/my.cnf:/etc/my.cnf:ro
       - ${BASEPATH:-/mydata/ec-demo}/mysql/ec-demo/data:/var/lib/mysql
       - ${BASEPATH:-/mydata/ec-demo}/mysql/ec-demo/log:/var/log/mysql
     healthcheck:
@@ -52,10 +52,10 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=nacos_config
     volumes:
-      - ${BASEPATH:-/mydata/ec-demo}/mysql/mall/conf/my.cnf:/etc/my.cnf
+      - ./mysql/conf/my.cnf:/etc/my.cnf:ro
       - ${BASEPATH:-/mydata/ec-demo}/mysql/mall/data:/var/lib/mysql
       - ${BASEPATH:-/mydata/ec-demo}/mysql/mall/log:/var/log/mysql
-      - ${BASEPATH:-/mydata/ec-demo}/sql/mysql:/docker-entrypoint-initdb.d
+      - ./sql/mysql-init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     networks:
@@ -259,7 +259,7 @@ services:
       - TZ=Asia/Tokyo
     volumes:
       - ${BASEPATH:-/mydata/ec-demo}/redis/data:/data
-      - ${BASEPATH:-/mydata/ec-demo}/redis/config/redis.conf:/etc/redis/redis.conf
+      - ./redis/redis.conf:/etc/redis/redis.conf:ro
     ports:
       - "6379:6379"
     networks:
