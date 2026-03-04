@@ -2,6 +2,7 @@ package lab.spring.ai.rag.config;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.elasticsearch.ElasticsearchVectorStore;
@@ -44,7 +45,12 @@ public class RagConfig {
      */
     @Bean
     public RestClient restClient() {
-        return RestClient.builder(HttpHost.create(elasticsearchUri)).build();
+        return RestClient.builder(HttpHost.create(elasticsearchUri))
+                .setRequestConfigCallback(requestConfigBuilder ->
+                        requestConfigBuilder
+                                .setConnectTimeout(60000)
+                                .setSocketTimeout(120000))
+                .build();
     }
 
     /**
