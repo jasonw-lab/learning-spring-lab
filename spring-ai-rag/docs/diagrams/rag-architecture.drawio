@@ -1,0 +1,354 @@
+<mxfile host="app.diagrams.net" modified="2025-02-28T00:00:00.000Z" agent="5.0" etag="1" version="21.0.0" type="device">
+  <diagram id="rag-overview" name="RAG Overview">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title" value="RAG (Retrieval-Augmented Generation) Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        <!-- User -->
+        <mxCell id="user" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="40" height="80" as="geometry" />
+        </mxCell>
+        <!-- Question -->
+        <mxCell id="question" value="質問&#xa;(Question)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="160" y="220" width="100" height="40" as="geometry" />
+        </mxCell>
+        <!-- Embedding -->
+        <mxCell id="embedding" value="Embedding&#xa;(Ollama)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="300" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <!-- Vector -->
+        <mxCell id="vector" value="質問ベクトル&#xa;[0.12, -0.34, ...]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="300" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <!-- VectorStore -->
+        <mxCell id="vectorstore" value="Vector Store&#xa;(Elasticsearch / Simple)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="480" y="180" width="140" height="100" as="geometry" />
+        </mxCell>
+        <!-- Similar Docs -->
+        <mxCell id="docs" value="類似ドキュメント&#xa;(Top-K)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="660" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <!-- Context -->
+        <mxCell id="context" value="Context 結合" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="820" y="200" width="100" height="60" as="geometry" />
+        </mxCell>
+        <!-- Prompt -->
+        <mxCell id="prompt" value="System Prompt&#xa;+ Context&#xa;+ Question" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="960" y="180" width="120" height="80" as="geometry" />
+        </mxCell>
+        <!-- LLM -->
+        <mxCell id="llm" value="LLM&#xa;(Ollama)&#xa;llama3.2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="180" width="100" height="80" as="geometry" />
+        </mxCell>
+        <!-- Answer -->
+        <mxCell id="answer" value="回答&#xa;(Answer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="200" width="100" height="60" as="geometry" />
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="user" target="question">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="question" target="embedding">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="embedding" target="vector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vector" target="vectorstore">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vectorstore" target="docs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="docs" target="context">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="context" target="prompt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="prompt" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="llm" target="answer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Phase Labels -->
+        <mxCell id="phase1" value="Phase1: SimpleVectorStore&#xa;Phase2: Elasticsearch" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="460" y="300" width="180" height="40" as="geometry" />
+        </mxCell>
+        <!-- Step Labels -->
+        <mxCell id="step1" value="STEP 1&#xa;Retrieval" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#0066CC;" vertex="1" parent="1">
+          <mxGeometry x="400" y="340" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="step2" value="STEP 2&#xa;Augmentation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#0066CC;" vertex="1" parent="1">
+          <mxGeometry x="800" y="340" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="step3" value="STEP 3&#xa;Generation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontColor=#0066CC;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="340" width="80" height="40" as="geometry" />
+        </mxCell>
+        <!-- Legend -->
+        <mxCell id="legend" value="凡例" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="80" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" value="ユーザー入出力" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" value="処理ステップ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" value="データストア" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="430" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" value="AI モデル" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="440" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="tool-calling" name="Tool Calling (Phase3)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title2" value="Phase3: RAG + Tool Calling" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        <!-- User Question -->
+        <mxCell id="tc-user" value="User&#xa;質問" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="200" width="80" height="60" as="geometry" />
+        </mxCell>
+        <!-- RAG Context -->
+        <mxCell id="tc-rag" value="RAG&#xa;Context取得" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="200" width="100" height="60" as="geometry" />
+        </mxCell>
+        <!-- LLM Decision -->
+        <mxCell id="tc-llm" value="LLM&#xa;(Tool必要か判断)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="400" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <!-- Decision Diamond -->
+        <mxCell id="tc-decision" value="Tool&#xa;必要?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="580" y="185" width="80" height="80" as="geometry" />
+        </mxCell>
+        <!-- Tool Execution -->
+        <mxCell id="tc-tools" value="Tool 実行" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="700" y="100" width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-inv" value="inventory_status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="tc-tools">
+          <mxGeometry x="10" y="30" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-sal" value="sales_analysis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="tc-tools">
+          <mxGeometry x="155" y="30" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-dev" value="device_alerts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="tc-tools">
+          <mxGeometry x="10" y="70" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-kpi" value="kpi_summary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="tc-tools">
+          <mxGeometry x="155" y="70" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-future" value="(将来: mall-retail API)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" vertex="1" parent="tc-tools">
+          <mxGeometry x="60" y="110" width="180" height="30" as="geometry" />
+        </mxCell>
+        <!-- Direct Answer -->
+        <mxCell id="tc-direct" value="直接回答&#xa;(Contextで十分)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="700" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <!-- Final LLM -->
+        <mxCell id="tc-final-llm" value="LLM&#xa;最終回答生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <!-- Answer -->
+        <mxCell id="tc-answer" value="回答" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="200" width="80" height="60" as="geometry" />
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="tc-a1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-user" target="tc-rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-rag" target="tc-llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-llm" target="tc-decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a4" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-decision" target="tc-tools">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a5" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-decision" target="tc-direct">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-tools" target="tc-final-llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-direct" target="tc-final-llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-a8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="tc-final-llm" target="tc-answer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Notes -->
+        <mxCell id="tc-note1" value="@Tool アノテーション&#xa;Spring AI が自動でLLMと連携" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="260" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tc-note2" value="ホワイトリスト:&#xa;defaultToolNames() で許可するToolを明示" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="280" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="multi-agent" name="Multi-Agent (Phase4)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title3" value="Phase4: Multi-Agent (Spring AI + LangChain4j)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="500" height="40" as="geometry" />
+        </mxCell>
+        <!-- User -->
+        <mxCell id="ma-user" value="User&#xa;質問" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="250" width="80" height="60" as="geometry" />
+        </mxCell>
+        <!-- Spring AI VectorStore -->
+        <mxCell id="ma-spring" value="Spring AI&#xa;VectorStore" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="240" y="180" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-embed" value="Embedding + Search" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="ma-spring">
+          <mxGeometry x="10" y="40" width="140" height="40" as="geometry" />
+        </mxCell>
+        <!-- Router -->
+        <mxCell id="ma-router" value="Router&#xa;(キーワード分岐)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="460" y="230" width="100" height="80" as="geometry" />
+        </mxCell>
+        <!-- LangChain4j Agents -->
+        <mxCell id="ma-lc4j" value="LangChain4j Agents" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="620" y="100" width="380" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-sales" value="SalesAgent&#xa;@SystemMessage&#xa;「売上分析の専門家」" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="ma-lc4j">
+          <mxGeometry x="20" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-inv" value="InventoryAgent&#xa;@SystemMessage&#xa;「在庫・需給の専門家」" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="ma-lc4j">
+          <mxGeometry x="200" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-sensor" value="SensorAgent&#xa;@SystemMessage&#xa;「IoT/センサー監視の専門家」" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="ma-lc4j">
+          <mxGeometry x="110" y="120" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-ollama" value="OllamaChatModel&#xa;(共有)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=10;" vertex="1" parent="ma-lc4j">
+          <mxGeometry x="110" y="200" width="160" height="40" as="geometry" />
+        </mxCell>
+        <!-- Answer -->
+        <mxCell id="ma-answer" value="回答&#xa;+ Agent Type" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="230" width="100" height="60" as="geometry" />
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="ma-a1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ma-user" target="ma-spring">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-a2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ma-spring" target="ma-router">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-a3" value="売上" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;" edge="1" parent="1" source="ma-router" target="ma-sales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-a4" value="在庫" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;" edge="1" parent="1" source="ma-router" target="ma-inv">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-a5" value="センサー" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;" edge="1" parent="1" source="ma-router" target="ma-sensor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-a6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ma-lc4j" target="ma-answer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Notes -->
+        <mxCell id="ma-note1" value="ハイブリッド構成:&#xa;• Spring AI: Embedding + VectorStore&#xa;• LangChain4j: Agent定義 (AiServices)" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="100" y="420" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ma-note2" value="本番改善案:&#xa;• LLMベースのRouter&#xa;• 複数Agent並列クエリ&#xa;• 結果統合（Summarizer Agent）" style="text;html=1;strokeColor=#d79b00;fillColor=#ffe6cc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="420" width="220" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="security" name="Security (Phase5)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Title -->
+        <mxCell id="title4" value="Phase5: Security Implementation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+        <!-- Request -->
+        <mxCell id="sec-req" value="HTTP Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="200" width="100" height="50" as="geometry" />
+        </mxCell>
+        <!-- Filter Chain -->
+        <mxCell id="sec-chain" value="Security Filter Chain" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="260" y="100" width="600" height="280" as="geometry" />
+        </mxCell>
+        <!-- API Key Filter -->
+        <mxCell id="sec-api" value="1. ApiKeyAuthFilter&#xa;X-API-KEY ヘッダ検証" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="sec-chain">
+          <mxGeometry x="20" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec-api-ok" value="OK" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#009900;" vertex="1" parent="sec-chain">
+          <mxGeometry x="180" y="55" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec-api-ng" value="NG → 401" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#CC0000;" vertex="1" parent="sec-chain">
+          <mxGeometry x="20" y="100" width="80" height="20" as="geometry" />
+        </mxCell>
+        <!-- Concurrent Limit Filter -->
+        <mxCell id="sec-limit" value="2. ConcurrentLimitFilter&#xa;Semaphore同時実行制限" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="sec-chain">
+          <mxGeometry x="220" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec-limit-ok" value="OK" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#009900;" vertex="1" parent="sec-chain">
+          <mxGeometry x="380" y="55" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sec-limit-ng" value="超過 → 429" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#CC0000;" vertex="1" parent="sec-chain">
+          <mxGeometry x="220" y="100" width="80" height="20" as="geometry" />
+        </mxCell>
+        <!-- Tool Whitelist -->
+        <mxCell id="sec-white" value="3. Tool ホワイトリスト&#xa;defaultToolNames() で制限" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="sec-chain">
+          <mxGeometry x="420" y="40" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- Validation -->
+        <mxCell id="sec-valid" value="4. 引数バリデーション&#xa;Tool内で不正値を拒否" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="sec-chain">
+          <mxGeometry x="120" y="140" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- Audit -->
+        <mxCell id="sec-audit" value="5. 監査ログ (AOP)&#xa;RagAuditAspect&#xa;ToolAuditAspect" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="sec-chain">
+          <mxGeometry x="320" y="140" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- RAG Service -->
+        <mxCell id="sec-rag" value="RagService&#xa;(Tool Calling)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="920" y="200" width="120" height="50" as="geometry" />
+        </mxCell>
+        <!-- Response -->
+        <mxCell id="sec-res" value="Response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="200" width="100" height="50" as="geometry" />
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="sec-a1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sec-req" target="sec-chain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec-a2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sec-chain" target="sec-rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sec-a3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sec-rag" target="sec-res">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Properties -->
+        <mxCell id="sec-props" value="設定プロパティ:&#xa;app.security.enabled=true&#xa;app.security.api-key=change-me&#xa;app.security.max-concurrent-requests=4" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="100" y="420" width="280" height="80" as="geometry" />
+        </mxCell>
+        <!-- Audit Log -->
+        <mxCell id="sec-log" value="監査ログ出力例:&#xa;AUDIT rag.ask elapsedMs=1234&#xa;AUDIT tool.call method=InventoryTool.inventoryStatus(..) elapsedMs=5" style="text;html=1;strokeColor=#9673a6;fillColor=#e1d5e7;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="420" width="420" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
